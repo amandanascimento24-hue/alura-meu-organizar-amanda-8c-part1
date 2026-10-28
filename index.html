@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORGANIZADOR DA AMANDA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- CENÁRIO 3D DE FUNDO COM OBJETOS VOANDO -->
+    <div class="bg-3d-scene" id="scene3d">
+        <!-- Cubo 3D 1 -->
+        <div class="cube-3d cube-1">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+        </div>
+
+        <!-- Cubo 3D 2 -->
+        <div class="cube-3d cube-2">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+        </div>
+
+        <!-- Esferas e Anéis Flutuantes -->
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="ring-3d ring-1"></div>
+        <div class="ring-3d ring-2"></div>
+        <div class="pyramid-3d"></div>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="app-container">
+
+        <!-- CABEÇALHO DA PÁGINA -->
+        <header class="main-header">
+            <div class="header-badge">✦ Espaço Pessoal de Produtividade</div>
+            <h1 class="main-title">ORGANIZADOR DA AMANDA</h1>
+            <p class="header-description">
+                Seu portal pessoal para gerenciar rotinas diárias, priorizar tarefas importantes e cultivar hábitos de alta performance. Organize seu dia com clareza, elegância e consistência.
+            </p>
+            
+            <!-- PAINEL DE ESTATÍSTICAS -->
+            <div class="stats-bar">
+                <div class="stat-card">
+                    <span class="stat-value" id="totalTasks">0</span>
+                    <span class="stat-label">Total de Tarefas</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="completedTasks">0</span>
+                    <span class="stat-label">Concluídas</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="progressPercentage">0%</span>
+                    <span class="stat-label">Progresso do Dia</span>
+                </div>
+            </div>
+
+            <!-- BARRA DE PROGRESSO VISUAL -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </header>
+
+        <!-- SEÇÃO PRINCIPAL DE TAREFAS -->
+        <main class="content-grid">
+            
+            <!-- COLUNA DA ESQUERDA: ADICIONAR & GERENCIAR TAREFAS -->
+            <section class="tasks-section glass-panel">
+                <div class="section-title-wrap">
+                    <h2>📋 Minhas Tarefas e Rotinas</h2>
+                    <p>Adicione e controle seus compromissos do dia a dia.</p>
+                </div>
+
+                <!-- FORMULÁRIO DE NOVA TAREFA -->
+                <form id="taskForm" class="task-form">
+                    <div class="form-group">
+                        <input type="text" id="taskTitle" placeholder="O que você precisa fazer hoje, Amanda?" required autocomplete="off">
+                    </div>
+                    <div class="form-row">
+                        <select id="taskCategory">
+                            <option value="Rotina Matinal">🌅 Rotina Matinal</option>
+                            <option value="Trabalho & Estudos" selected>💻 Trabalho & Estudos</option>
+                            <option value="Saúde & Bem-Estar">🧘‍♀️ Saúde & Bem-Estar</option>
+                            <option value="Rotina Noturna">🌙 Rotina Noturna</option>
+                            <option value="Metas Pessoais">🎯 Metas Pessoais</option>
+                        </select>
+                        <select id="taskPriority">
+                            <option value="Baixa">🟢 Baixa Prioridade</option>
+                            <option value="Média" selected>🟡 Média Prioridade</option>
+                            <option value="Alta">🔴 Alta Prioridade</option>
+                        </select>
+                        <button type="submit" class="btn-add">
+                            <span>+ Adicionar</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- FILTROS -->
+                <div class="filter-tabs">
+                    <button class="tab-btn active" data-filter="all">Todas</button>
+                    <button class="tab-btn" data-filter="pending">Pendentes</button>
+                    <button class="tab-btn" data-filter="completed">Concluídas</button>
+                </div>
+
+                <!-- LISTA DE TAREFAS -->
+                <ul class="task-list" id="taskList">
+                    <!-- Tarefas serão inseridas dinamicamente pelo JS -->
+                </ul>
+            </section>
+
+            <!-- COLUNA DA DIREITA: CARDS INTERATIVOS COM DICAS -->
+            <section class="tips-section">
+                <div class="section-title-wrap text-white">
+                    <h2>💡 Dicas de Organização da Amanda</h2>
+                    <p>Clique em qualquer card para ver os detalhes no modal explicativo.</p>
+                </div>
+
+                <div class="tips-grid">
+
+                    <!-- CARD 1 -->
+                    <div class="tip-card" onclick="openModal('pomodoro')">
+                        <div class="tip-icon">⏳</div>
+                        <div class="tip-content">
+                            <span class="tip-tag">Foco & Concentração</span>
+                            <h3>Técnica Pomodoro</h3>
+                            <p>Divida seu tempo em blocos de foco total de 25 minutos com pausas revigorantes.</p>
+                        </div>
+                        <span class="tip-action">Saber mais →</span>
+                    </div>
+
+                    <!-- CARD 2 -->
+                    <div class="tip-card" onclick="openModal('two-min')">
+                        <div class="tip-icon">⚡</div>
+                        <div class="tip-content">
+                            <span class="tip-tag">Agilidade</span>
+                            <h3>Regra dos 2 Minutos</h3>
+                            <p>Se uma tarefa leva menos de 2 minutos para ser feita, resolva-a imediatamente.</p>
+                        </div>
+                        <span class="tip-action">Saber mais →</span>
+                    </div>
+
+                    <!-- CARD 3 -->
+                    <div class="tip-card" onclick="openModal('time-blocking')">
+                        <div class="tip-icon">🗓️</div>
+                        <div class="tip-content">
+                            <span class="tip-tag">Planejamento</span>
+                            <h3>Blocos de Tempo</h3>
+                            <p>Agrupe tarefas similares em horários fixos do seu dia para diminuir a fadiga mental.</p>
+                        </div>
+                        <span class="tip-action">Saber mais →</span>
+                    </div>
+
+                    <!-- CARD 4 -->
+                    <div class="tip-card" onclick="openModal('morning-routine')">
+                        <div class="tip-icon">✨</div>
+                        <div class="tip-content">
+                            <span class="tip-tag">Bem-estar</span>
+                            <h3>Rotina Matinal Consciente</h3>
+                            <p>Inicie as primeiras horas do dia sem telas para garantir clareza e paz de espírito.</p>
+                        </div>
+                        <span class="tip-action">Saber mais →</span>
+                    </div>
+
+                    <!-- CARD 5 -->
+                    <div class="tip-card" onclick="openModal('weekly-review')">
+                        <div class="tip-icon">📊</div>
+                        <div class="tip-content">
+                            <span class="tip-tag">Estratégia</span>
+                            <h3>Revisão Semanal</h3>
+                            <p>Dedique 15 minutos ao fim do domingo para ajustar as prioridades da próxima semana.</p>
+                        </div>
+                        <span class="tip-action">Saber mais →</span>
+                    </div>
+
+                    <!-- CARD 6 -->
+                    <div class="tip-card" onclick="openModal('sleep-hygiene')">
+                        <div class="tip-icon">🌙</div>
+                        <div class="tip-content">
+                            <span class="tip-tag">Energia</span>
+                            <h3>Higiene do Sono</h3>
+                            <p>Prepare sua mente e corpo para um descanso reparador com um ritual noturno desacelerado.</p>
+                        </div>
+                        <span class="tip-action">Saber mais →</span>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <!-- RODAPÉ -->
+        <footer class="main-footer">
+            <p>ORGANIZADOR DA AMANDA &copy; 2026 — Foco, Elegância e Disciplina diária.</p>
+        </footer>
+    </div>
+
+    <!-- EFEITO MODAL EXPLICATIVO -->
+    <div class="modal-overlay" id="infoModal" onclick="closeModalOnOverlay(event)">
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-header">
+                <span class="modal-badge" id="modalBadge">Dica de Produtividade</span>
+                <h2 id="modalTitle">Título da Dica</h2>
+            </div>
+            <div class="modal-body">
+                <p id="modalDescription">Descrição detalhada do tópico selecionado.</p>
+                
+                <div class="modal-highlight-box">
+                    <h4>🚀 Como aplicar na sua rotina:</h4>
+                    <ul id="modalSteps">
+                        <!-- Passos carregados via JavaScript -->
+                    </ul>
+                </div>
+
+                <div class="modal-quote" id="modalQuote">
+                    "Organização não é sobre perfeição, é sobre eficiência e paz mental."
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-close" onclick="closeModal()">Entendido, aplicar agora!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT EMbutido PARA FUNCIONAR TOTALMENTE OFFLINE -->
+    <script>
+        // BASE DE DADOS DAS DICAS PARA O MODAL
+        const tipsData = {
+            'pomodoro': {
+                badge: 'Foco & Concentração',
+                title: 'Técnica Pomodoro: Máximo Foco',
+                description: 'A Técnica Pomodoro ajuda a manter sua mente fresca e focada, dividindo o trabalho em blocos cronometrados. Ideal para quando Amanda precisa estudar ou produzir relatórios sem se distrair.',
+                steps: [
+                    'Escolha a tarefa que deseja realizar.',
+                    'Defina um cronômetro para 25 minutos e trabalhe com 100% de foco.',
+                    'Quando o alarme tocar, faça uma pausa curta de 5 minutos (alongue-se, beba água).',
+                    'Após 4 ciclos ("pomodoros"), faça uma pausa mais longa de 15 a 30 minutos.'
+                ],
+                quote: 'A atenção focada por curto tempo produz mais do que horas de distração contínua.'
+            },
+            'two-min': {
+                badge: 'Agilidade',
+                title: 'Regra dos 2 Minutos: Elimine a Procrastinação',
+                description: 'Se uma tarefa surge e você sabe que levará 120 segundos ou menos para concluir (responder um e-mail rápido, guardar um casaco, arrumar a cama), faça-a no mesmo instante.',
+                steps: [
+                    'Avalie o tempo estimado da tarefa imediatamente ao identificá-la.',
+                    'Se o tempo for ≤ 2 minutos, execute de imediato sem colocar na lista.',
+                    'Isso impede o acúmulo de dezenas de mini-tarefas pequenas que poluem sua mente.'
+                ],
+                quote: 'Pequenas pendências acumuladas geram grandes ansiedades invisíveis.'
+            },
+            'time-blocking': {
+                badge: 'Planejamento',
+                title: 'Blocos de Tempo (Time Blocking)',
+                description: 'Em vez de apenas manter uma lista solta de afazeres, atribua um horário exato no seu dia para cada categoria de atividade. Isso traz estrutura para sua rotina diária.',
+                steps: [
+                    'Divida seu dia em blocos (ex: 08h-10h Foco Profundo, 14h-15h Exercícios, 20h Leitura).',
+                    'Respeite o bloco de tempo como se fosse uma reunião inadiável com você mesma.',
+                    'Deixe um bloco livre de 30 minutos como margem para imprevistos.'
+                ],
+                quote: 'Quando você domina sua agenda, você domina o ritmo da sua vida.'
+            },
+            'morning-routine': {
+                badge: 'Bem-estar',
+                title: 'Rotina Matinal Consciente',
+                description: 'Evite pegar no celular nos primeiros 30 minutos após acordar. Use esse tempo sagrado para hidratar seu corpo, respirar fundo e preparar seu estado de espírito.',
+                steps: [
+                    'Beba um copo grande de água logo ao se levantar.',
+                    'Faça 5 minutos de alongamento ou respiração profunda.',
+                    'Revise suas 3 principais metas no Organizador da Amanda antes de checar redes sociais.'
+                ],
+                quote: 'Como você começa a sua manhã determina o tom de todo o seu dia.'
+            },
+            'weekly-review': {
+                badge: 'Estratégia',
+                title: 'Revisão Semanal Estratégica',
+                description: 'A revisão semanal é o hábito das pessoas mais organizadas do mundo. Permite alinhar suas ações diárias com seus objetivos de longo prazo.',
+                steps: [
+                    'Reserve 15 a 20 minutos todo domingo ou segunda-feira bem cedo.',
+                    'Celebre o que foi concluído na semana anterior.',
+                    'Limpe a lista de tarefas antigas e planeje os novos compromissos.'
+                ],
+                quote: 'Olhar para trás com clareza é o segredo para avançar com precisão.'
+            },
+            'sleep-hygiene': {
+                badge: 'Energia',
+                title: 'Higiene do Sono & Recarga',
+                description: 'Sua produtividade de amanhã depende da qualidade do seu descanso hoje. Crie um ritual noturno para avisar o seu cérebro que é hora de desacelerar.',
+                steps: [
+                    'Desligue luzes fortes e telas no mínimo 45 minutos antes de dormir.',
+                    'Mantenha o quarto fresco, escuro e confortável.',
+                    'Anote no organizador qualquer preocupação para "esvaziar a mente" antes de deitar.'
+                ],
+                quote: 'O sono reparador não é luxo, é o combustível da sua alta performance.'
+            }
+        };
+
+        // ESTADO DA APLICAÇÃO (TAREFAS)
+        let tasks = JSON.parse(localStorage.getItem('amanda_tasks')) || [
+            { id: 1, title: 'Beber 500ml de água e alongar', category: 'Rotina Matinal', priority: 'Alta', completed: true },
+            { id: 2, title: 'Revisar metas do projeto principal', category: 'Trabalho & Estudos', priority: 'Alta', completed: false },
+            { id: 3, title: 'Caminhada ou exercício físico de 30 min', category: 'Saúde & Bem-Estar', priority: 'Média', completed: false }
+        ];
+
+        let currentFilter = 'all';
+
+        // INICIALIZAÇÃO
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTasks();
+            setupTabs();
+            setupForm();
+        });
+
+        // SALVAR NO LOCALSTORAGE
+        function saveTasks() {
+            localStorage.setItem('amanda_tasks', JSON.stringify(tasks));
+            updateStats();
+        }
+
+        // RENDERIZAR LISTA DE TAREFAS
+        function renderTasks() {
+            const listEl = document.getElementById('taskList');
+            listEl.innerHTML = '';
+
+            const filteredTasks = tasks.filter(task => {
+                if (currentFilter === 'pending') return !task.completed;
+                if (currentFilter === 'completed') return task.completed;
+                return true;
+            });
+
+            if (filteredTasks.length === 0) {
+                listEl.innerHTML = `
+                    <div class="empty-state">
+                        <p>Nenhuma tarefa encontrada aqui! ✨</p>
+                    </div>
+                `;
+                updateStats();
+                return;
+            }
+
+            filteredTasks.forEach(task => {
+                const li = document.createElement('li');
+                li.className = `task-item ${task.completed ? 'completed' : ''}`;
+                
+                let priorityClass = 'priority-low';
+                if(task.priority === 'Média') priorityClass = 'priority-medium';
+                if(task.priority === 'Alta') priorityClass = 'priority-high';
+
+                li.innerHTML = `
+                    <div class="task-checkbox ${task.completed ? 'checked' : ''}" onclick="toggleTask(${task.id})">
+                        ${task.completed ? '✓' : ''}
+                    </div>
+                    <div class="task-info">
+                        <span class="task-text">${escapeHtml(task.title)}</span>
+                        <div class="task-meta">
+                            <span class="task-cat">${task.category}</span>
+                            <span class="task-prio ${priorityClass}">${task.priority}</span>
+                        </div>
+                    </div>
+                    <button class="btn-delete" onclick="deleteTask(${task.id})" title="Excluir tarefa">🗑️</button>
+                `;
+                listEl.appendChild(li);
+            });
+
+            updateStats();
+        }
+
+        // CONFIGURAR FORMULÁRIO
+        function setupForm() {
+            const form = document.getElementById('taskForm');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const titleInput = document.getElementById('taskTitle');
+                const categorySelect = document.getElementById('taskCategory');
+                const prioritySelect = document.getElementById('taskPriority');
+
+                const title = titleInput.value.trim();
+                if (!title) return;
+
+                const newTask = {
+                    id: Date.now(),
+                    title: title,
+                    category: categorySelect.value,
+                    priority: prioritySelect.value,
+                    completed: false
+                };
+
+                tasks.unshift(newTask);
+                saveTasks();
+                renderTasks();
+                titleInput.value = '';
+            });
+        }
+
+        // MARCAR / DESMARCAR TAREFA
+        function toggleTask(id) {
+            tasks = tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+            saveTasks();
+            renderTasks();
+        }
+
+        // EXCLUIR TAREFA
+        function deleteTask(id) {
+            tasks = tasks.filter(t => t.id !== id);
+            saveTasks();
+            renderTasks();
+        }
+
+        // CONFIGURAR TABS DE FILTRO
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentFilter = tab.getAttribute('data-filter');
+                    renderTasks();
+                });
+            });
+        }
+
+        // ATUALIZAR ESTATÍSTICAS E BARRA DE PROGRESSO
+        function updateStats() {
+            const total = tasks.length;
+            const completed = tasks.filter(t => t.completed).length;
+            const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
+
+            document.getElementById('totalTasks').textContent = total;
+            document.getElementById('completedTasks').textContent = completed;
+            document.getElementById('progressPercentage').textContent = `${percent}%`;
+            document.getElementById('progressBar').style.width = `${percent}%`;
+        }
+
+        // SISTEMA DE MODAL (ABRIR E FECHAR)
+        function openModal(key) {
+            const data = tipsData[key];
+            if (!data) return;
+
+            document.getElementById('modalBadge').textContent = data.badge;
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalDescription').textContent = data.description;
+            document.getElementById('modalQuote').textContent = `"${data.quote}"`;
+
+            const stepsEl = document.getElementById('modalSteps');
+            stepsEl.innerHTML = '';
+            data.steps.forEach(step => {
+                const li = document.createElement('li');
+                li.textContent = step;
+                stepsEl.appendChild(li);
+            });
+
+            const modal = document.getElementById('infoModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Impede rolagem ao fundo
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('infoModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeModalOnOverlay(e) {
+            if (e.target.id === 'infoModal') {
+                closeModal();
+            }
+        }
+
+        // ESCUTA TECLA ESC PARA FECHAR MODAL
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // AUXILIAR CONTRA INJEÇÃO DE HTML
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
